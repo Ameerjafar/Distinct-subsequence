@@ -1,0 +1,22 @@
+class Solution {
+    public int helper(String s1,String s2,int ind1,int ind2,int[][] dp){
+        if(ind2<0) return 1;
+        if(ind1<0) return 0;
+        if(dp[ind1][ind2]!=-1){
+            return dp[ind1][ind2];
+        }
+        if(s1.charAt(ind1)==s2.charAt(ind2)){
+             return dp[ind1][ind2]=helper(s1,s2,ind1-1,ind2-1,dp)+helper(s1,s2,ind1-1,ind2,dp);
+        }
+        else{
+            return dp[ind1][ind2]=helper(s1,s2,ind1-1,ind2,dp);
+        }
+    }
+    public int numDistinct(String s, String t) {
+        int[][] dp=new int[s.length()][t.length()];
+        for(int[] rows:dp){
+            Arrays.fill(rows,-1);
+        }
+        return helper(s,t,s.length()-1,t.length()-1,dp);
+    }
+}
